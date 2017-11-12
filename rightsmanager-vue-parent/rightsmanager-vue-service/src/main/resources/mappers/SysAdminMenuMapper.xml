@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.rightsmanagervueservice.dao.SysAdminMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.rightsmanagervueservice.model.SysAdminMenu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="menu_type" property="menuType" jdbcType="TINYINT" />
+    <result column="sort" property="sort" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="rule_id" property="ruleId" jdbcType="INTEGER" />
+    <result column="module" property="module" jdbcType="VARCHAR" />
+    <result column="menu" property="menu" jdbcType="VARCHAR" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <!-- 根据权限ids查询菜单信息 -->
+  <select id="selectInRuleIds" resultMap="BaseResultMap">
+    SELECT * FROM sys_admin_menu t1 where t1.status = #{status} AND t1.rule_id in (#{ruleIds}) order by sort asc
+  </select>
+
+  <select id="getRule" parameterType="int" resultType="com.framework.rightsmanagervueservice.model.SysAdminRule">
+    SELECT id, title, name, level, pid, status FROM sys_admin_rule WHERE id=#{id}
+  </select>
+
+</mapper>
